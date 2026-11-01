@@ -1,8 +1,8 @@
-import { chatGPTSignInPath, chatGPTSignOutPath, requireChatGPTUser } from "./chatgpt-auth";
+import { requireChatGPTUser } from "./chatgpt-auth";
 import Planner from "./planner";
 
 export const dynamic = "force-dynamic";
 export default async function Home() {
   const user = await requireChatGPTUser("/");
-  return <Planner user={{ name: user.displayName, email: user.email }} signInPath={chatGPTSignInPath("/")} signOutPath={chatGPTSignOutPath("/")} />;
+  return <Planner user={{ name: user.displayName, email: user.email }} onSignOut={() => {}} />;
 }
