@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7f4ed" />
+  <meta name="description" content="Horizon is a calm, offline-first planner for your day, week, month, and year." />
+  <title>Horizon — Plan gently, move clearly</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Horizon home">
+        <span class="brand-mark"><i></i><i></i><i></i></span>
+        <span>Horizon</span>
+      </a>
+      <nav class="view-switcher" aria-label="Planner view">
+        <button data-view="day" class="view-tab active">Day</button>
+        <button data-view="week" class="view-tab">Week</button>
+        <button data-view="month" class="view-tab">Month</button>
+        <button data-view="year" class="view-tab">Year</button>
+      </nav>
+      <div class="top-actions">
+        <button id="notifyBtn" class="icon-btn" title="Enable reminders" aria-label="Enable reminders">◎</button>
+        <button id="themeBtn" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">☼</button>
+        <button id="addBtn" class="primary-btn"><span>＋</span><b>New task</b></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-row">
+        <div>
+          <p id="eyebrow" class="eyebrow">Sunday · November 1</p>
+          <h1 id="periodTitle">Make space for<br><em>what matters.</em></h1>
+        </div>
+        <div class="date-nav">
+          <button id="prevBtn" aria-label="Previous period">←</button>
+          <button id="todayBtn">Today</button>
+          <button id="nextBtn" aria-label="Next period">→</button>
+        </div>
+      </section>
+
+      <section class="capture-card" aria-label="Quick task entry">
+        <button id="voiceBtn" class="voice-btn" title="Speak a task" aria-label="Speak a task"><span>◉</span></button>
+        <input id="quickInput" autocomplete="off" placeholder='Try “Gym tomorrow at 7 AM #Health high energy”' />
+        <span class="capture-hint">↵ to add</span>
+      </section>
+
+      <div class="content-grid">
+        <aside id="sidebar" class="sidebar">
+          <div class="sidebar-heading">
+            <div><span class="kicker">Unscheduled</span><strong id="backlogCount">0 tasks</strong></div>
+            <button id="collapseBtn" class="tiny-btn" aria-label="Collapse backlog">‹</button>
+          </div>
+          <div id="backlog" class="backlog-list dropzone" data-dropzone="backlog"></div>
+          <button id="sideAddBtn" class="text-add">＋ Add to backlog</button>
+          <div class="filter-block">
+            <span class="kicker">Focus labels</span>
+            <div id="labelFilters" class="filter-list"></div>
+          </div>
+          <div class="energy-block">
+            <span class="kicker">Energy</span>
+            <div class="segmented" id="energyFilter">
+              <button data-energy="all" class="active">All</button>
+              <button data-energy="high">⚡ High</button>
+              <button data-energy="low">🔋 Low</button>
+            </div>
+          </div>
+        </aside>
+
+        <section class="planner-card">
+          <button id="mobileBacklogBtn" class="mobile-backlog">☰ <span>Backlog</span></button>
+          <div id="viewContainer" class="view-container" aria-live="polite"></div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+
+  <dialog id="taskDialog" class="task-dialog">
+    <form method="dialog" id="taskForm">
+      <div class="dialog-head"><span class="kicker">Task details</span><button value="cancel" class="icon-btn" aria-label="Close">×</button></div>
+      <input id="taskId" type="hidden" />
+      <label>What needs doing?<input id="taskTitle" required placeholder="Design review" /></label>
+      <div class="form-row">
+        <label>Date<input id="taskDate" type="date" /></label>
+        <label>Start<input id="taskTime" type="time" step="900" /></label>
+      </div>
+      <div class="form-row">
+        <label>Duration<select id="taskDuration"><option value="30">30 min</option><option value="45">45 min</option><option value="60" selected>1 hour</option><option value="90">1.5 hours</option><option value="120">2 hours</option></select></label>
+        <label>Label<input id="taskLabel" placeholder="Work" /></label>
+      </div>
+      <label>Energy<select id="taskEnergy"><option value="none">No preference</option><option value="high">⚡ High energy</option><option value="low">🔋 Low energy</option></select></label>
+      <label class="check-row"><input id="taskReminder" type="checkbox" /> Remind me 10 minutes before</label>
+      <div class="dialog-actions"><button id="deleteTaskBtn" type="button" class="danger-btn">Delete</button><span></span><button value="cancel" class="ghost-btn">Cancel</button><button id="saveTaskBtn" value="default" class="primary-btn">Save task</button></div>
+    </form>
+  </dialog>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
